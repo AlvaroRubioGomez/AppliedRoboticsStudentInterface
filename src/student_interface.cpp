@@ -451,7 +451,7 @@ namespace student {
       miss_output_1 = mission_1(PRM_param, dubins_param, start_pose, gate_pose, 
                                   victim_list, delta);      
       if(miss_output_1.path.empty()){
-        drawing_mission_1(inflated_obstacle_list, gate, miss_output_1, map_param);           
+        drawing_mission_1(inflated_obstacle_list, gate, victim_list, miss_output_1, map_param);           
         printf("Empty path\n");        
         break;
       }
@@ -459,7 +459,7 @@ namespace student {
         //Set path
         path = miss_output_1.path;
         if(drawing){
-          drawing_mission_1(inflated_obstacle_list, gate, miss_output_1, map_param);
+          drawing_mission_1(inflated_obstacle_list, gate, victim_list, miss_output_1, map_param);
         }
       }      
       break;
@@ -478,7 +478,7 @@ namespace student {
         //Set path
         path = miss_output_2.path;
         if(drawing){
-          drawing_mission_2(inflated_obstacle_list, victim_list, miss_output_2, map_param);
+          drawing_mission_2(inflated_obstacle_list, gate, victim_list, miss_output_2, map_param);
         }
       }      
       break;
