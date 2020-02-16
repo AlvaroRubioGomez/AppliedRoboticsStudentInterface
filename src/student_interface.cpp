@@ -323,7 +323,10 @@ namespace student {
     //Robot parameters
     double robot_length = load_config_param(config_dir, "robot_length"); //(m)    
     double robot_width = load_config_param(config_dir, "robot_width"); //(m)
-    double robot_speed = load_config_param(config_dir, "robot_speed"); //(m/s)   
+    double robot_speed = load_config_param(config_dir, "robot_speed"); //(m/s) 
+
+    //Map
+    int less_restrictive = load_config_param(config_dir, "less_restrictive");
 
     //Visualising the map parameters        
     double img_map_w = load_config_param(config_dir, "img_map_w"); //image map width in pixels
@@ -390,10 +393,16 @@ namespace student {
     Polygon square_gate = get_gate_pose(gate, map_h, map_w, robot_length, gate_pose, goal_delta); 
     
     //Inflate polygons and walls   
-    double OFFSET = sqrt(pow(robot_length,2) + pow(robot_width,2))/2; //Robot radius
+    double OFFSET = sqrt(pow(robot_length,2) + pow(robot_width,2))/2; //general offset (Robot radius)
+    double OFFSET_lr = robot_length/2; //less restrictive offset
    
     //Inflate polygons    
-    inflated_obstacle_list = inflate_polygons(clean_obstacle_list, OFFSET);
+    if(less_restrictive){
+      inflated_obstacle_list = inflate_polygons(clean_obstacle_list, OFFSET_lr);
+    }
+    else{
+      inflated_obstacle_list = inflate_polygons(clean_obstacle_list, OFFSET);
+    }
 
     //Inflate walls    
     inflated_walls = inflate_walls(map_w, map_h, OFFSET, gate, square_gate); //substract gate shape
